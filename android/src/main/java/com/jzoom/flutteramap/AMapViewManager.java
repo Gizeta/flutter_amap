@@ -54,6 +54,7 @@ public class AMapViewManager {
         aMap.setMinZoomLevel( (float)(double)(Double) mapView.get("minZoomLevel")    );
 
         aMap.setMyLocationEnabled((Boolean) mapView.get("showsUserLocation"));
+        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
 
 
         Map<String,Object> centerCoordinate = (Map<String, Object>) mapView.get("centerCoordinate");
