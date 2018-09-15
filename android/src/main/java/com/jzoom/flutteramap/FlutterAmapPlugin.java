@@ -61,7 +61,7 @@ public class FlutterAmapPlugin implements MethodCallHandler {
     String method = call.method;
     if ("show".equals(method)) {
         Map<String,Object> args = (Map<String, Object>) call.arguments;
-        Map<String,Object> mapViewOptions = (Map<String, Object>) args.get("mapView");
+        final Map<String,Object> mapViewOptions = (Map<String, Object>) args.get("mapView");
         final String id = (String) args.get("id");
 
         root.runOnUiThread(new Runnable() {
@@ -72,7 +72,7 @@ public class FlutterAmapPlugin implements MethodCallHandler {
                 view.onResume();
                 root.addContentView(  view,new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
 
-
+                FlutterAmapPlugin.manager.updateProps(view, mapViewOptions);
             }
         });
 
