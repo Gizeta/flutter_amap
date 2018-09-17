@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.LatLng;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -118,6 +123,24 @@ public class FlutterAmapPlugin implements MethodCallHandler {
     }else if("dismiss".equals(method)){
 
         result.success(true);
+    } else if ("mark".equals(method)) {
+      Map<String,Object> args = (Map<String, Object>) call.arguments;
+      String id = (String) args.get("id");
+      AMap amap = map.get(id).getMap();
+
+      double lat = (Double) args.get("lat");
+      double lng = (Double) args.get("lng");
+      String title = (String) args.get("title");
+      String snippet = (String) args.get("snippet");
+      amap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
+        .position(new LatLng(lat, lng))
+        .title(title)
+        .snippet(snippet));
+    } else if ("clear".equals(method)) {
+      Map<String,Object> args = (Map<String, Object>) call.arguments;
+      String id = (String) args.get("id");
+      AMap amap = map.get(id).getMap();
+      amap.clear();
     } else {
       result.notImplemented();
     }

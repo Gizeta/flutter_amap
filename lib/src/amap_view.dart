@@ -318,6 +318,20 @@ class AMapView extends StatefulWidget {
   }
   static MethodChannel channel = const MethodChannel('flutter_amap');
 
+  static void clearMarkers(GlobalKey key) {
+    AMapView.channel.invokeMethod('clear', {
+      'id': key.toString(),
+    });
+  }
+  static void addMarker(GlobalKey key, double lat, double lng, String title, String snippet) {
+    AMapView.channel.invokeMethod('mark', {
+      'id': key.toString(),
+      'lat': lat,
+      'lng': lng,
+      'title': title,
+      'snippet': snippet,
+    });
+  }
 
   static Future<dynamic> _handleMethod(MethodCall call) async {
     String method = call.method;

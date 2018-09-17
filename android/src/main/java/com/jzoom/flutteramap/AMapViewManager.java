@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.model.LatLng;
 
@@ -38,6 +39,13 @@ public class AMapViewManager {
                 map.put("timestamp",(double)location.getTime() / 1000);
                 map.put("id",view.getKey());
                 channel.invokeMethod("locationUpdate",map);
+            }
+        });
+        view.getMap().setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                marker.showInfoWindow();
+                return false;
             }
         });
         return view;
